@@ -1,0 +1,97 @@
+{
+  "generated_at": "2025-09-04T19:05:01",
+  "target": {
+    "host": "127.0.0.1",
+    "home": "http://127.0.0.1:5055/",
+    "product": "http://127.0.0.1:5055/product"
+  },
+  "findings": [
+    {
+      "id": "SQLI-BOOLEAN",
+      "title": "Possible boolean-based SQL injection",
+      "severity": "HIGH",
+      "target": "http://127.0.0.1:5055/product?id=1",
+      "evidence": {
+        "tested_urls": {
+          "base": "http://127.0.0.1:5055/product?id=1",
+          "pos": "http://127.0.0.1:5055/product?id=1%27+OR+%271%27%3D%271",
+          "neg": "http://127.0.0.1:5055/product?id=1%27+AND+%271%27%3D%272"
+        },
+        "lengths": {
+          "base": 90,
+          "pos": 144,
+          "neg": 75
+        },
+        "signals": {
+          "length": true,
+          "content": true
+        }
+      },
+      "remediation": "Use parameterized queries/prepared statements; validate input; avoid string concatenation; consider ORM/WAF."
+    },
+    {
+      "id": "HDR-Content-Security-Policy",
+      "title": "Missing security header: Content-Security-Policy",
+      "severity": "MEDIUM",
+      "target": "http://127.0.0.1:5055/",
+      "evidence": "Content-Security-Policy not present in HTTP response headers.",
+      "remediation": "Add a CSP, e.g. \"default-src 'self'; script-src 'self'\"; avoid 'unsafe-inline'."
+    },
+    {
+      "id": "HDR-Referrer-Policy",
+      "title": "Missing security header: Referrer-Policy",
+      "severity": "MEDIUM",
+      "target": "http://127.0.0.1:5055/",
+      "evidence": "Referrer-Policy not present in HTTP response headers.",
+      "remediation": "Set header: Referrer-Policy: strict-origin-when-cross-origin (or no-referrer)."
+    },
+    {
+      "id": "HDR-X-Content-Type-Options",
+      "title": "Missing security header: X-Content-Type-Options",
+      "severity": "MEDIUM",
+      "target": "http://127.0.0.1:5055/",
+      "evidence": "X-Content-Type-Options not present in HTTP response headers.",
+      "remediation": "Set header: X-Content-Type-Options: nosniff."
+    },
+    {
+      "id": "HDR-X-Frame-Options",
+      "title": "Missing security header: X-Frame-Options",
+      "severity": "MEDIUM",
+      "target": "http://127.0.0.1:5055/",
+      "evidence": "X-Frame-Options not present in HTTP response headers.",
+      "remediation": "Set header: X-Frame-Options: DENY (or SAMEORIGIN)."
+    },
+    {
+      "id": "PORT-135",
+      "title": "Open port: 135",
+      "severity": "INFO",
+      "target": "127.0.0.1:135",
+      "evidence": "(no banner)",
+      "remediation": "Close unused ports or restrict access with a firewall."
+    },
+    {
+      "id": "PORT-445",
+      "title": "Open port: 445",
+      "severity": "INFO",
+      "target": "127.0.0.1:445",
+      "evidence": "(no banner)",
+      "remediation": "Close unused ports or restrict access with a firewall."
+    },
+    {
+      "id": "TLS-example.com:443-NOTE",
+      "title": "TLS observation",
+      "severity": "INFO",
+      "target": "example.com:443",
+      "evidence": "Negotiated TLS 1.3 (good).",
+      "remediation": "Review TLS configuration for modern best practices."
+    },
+    {
+      "id": "TLS-example.com:443-NOTE",
+      "title": "TLS observation",
+      "severity": "INFO",
+      "target": "example.com:443",
+      "evidence": "Certificate valid; ~133 days left.",
+      "remediation": "Review TLS configuration for modern best practices."
+    }
+  ]
+}

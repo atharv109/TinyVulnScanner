@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Search Page</h1>
+<p>You searched for: <span id="result"></span></p>
+
+<script>
+  // this simulates an unsafe site
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById("result").innerHTML = params.get("q");
+</script>
+</body>
+</html>
